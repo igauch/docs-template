@@ -41,7 +41,7 @@ let tree = function tree(path, options) {
     console.log('#----------------------------------------------------#\n');
   }
   files.forEach(function (i) {
-    let p = path + (/\/$/.test(path) ? '' : '/') + i,
+    let p = '../' + path + (/\/$/.test(path) ? '' : '/') + i,
       meta = {};
     state = fs.statSync(p);
     if (ignore.indexOf(i) === -1 && (!suffix.length || state.isDirectory() || (/\./.test(i) && suffix.indexOf(i.replace(/.*\.(.*)$/, '$1')) >= 0))) {

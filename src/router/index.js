@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import fileTree from '../../build/filesTree.js'
+import routerConfigTreeData from './config.json'
 
 let requireComponents = path => {
   return r => require.ensure([], () =>
@@ -13,12 +13,11 @@ const root = {
   }
 };
 
+routerConfigTreeData
+
 Vue.use(Router)
 
-// const fileTree=require('../../build/filesTree');
-const routerConfigTreeData=fileTree.tree('../../docs');
-// console.log(JSON.stringify(routerConfigTreeData));
 export default new Router({
-  routes: routerConfigTreeData
+  routes: routerConfigTreeData.config
 })
 
