@@ -1,0 +1,31 @@
+{
+  "config": [
+    {
+      "name": "alert",
+      "meta": {
+        "title": "提醒",
+        "resourcePath": "../docs/alert.md"
+      }
+    },
+    {
+      "name": "group",
+      "meta": {},
+      "children": [
+        {
+          "name": "groupBadge",
+          "meta": {
+            "title": "徽章",
+            "group": {
+              "name": "docs",
+              "test": [
+                "first",
+                "second"
+              ]
+            },
+            "resourcePath": "../docs/group/badge.MD"
+          }
+        }
+      ]
+    }
+  ]
+}

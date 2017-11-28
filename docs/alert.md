@@ -1,3 +1,6 @@
+---
+title: 提醒
+---
 <script>
   export default {
     methods: {
