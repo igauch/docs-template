@@ -33,6 +33,9 @@ export default new Router({
     component: root,
     redirect: 'index',
     children: routerConfigTreeData
+  },{
+    path: '/*',
+    redirect: '/'
   }]
 })
 
