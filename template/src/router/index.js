@@ -1,32 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+Vue.use(Router);
+
 import routerConfigTreeData from './config.json'
 
-// let requireComponents = path => {
-//   return r => require.ensure([], () =>
-//       r(require(path)),
-//     'docs');
-// };
-const root = {
-  'root': {
-    template: '<router-view></router-view>'
-  }
-};
+const root = Vue.component('root', {
+  template: '<router-view></router-view>'
+});
 
 let treeFor=function (data) {
   data.forEach(val=>{
     if(!val.children){
-      val.components=78
+      val.component=function(r) {
+        return require.ensure([], function() {
+          return r(require('../../docs/'+val.meta.resourcePath));
+        }, 'docs');
+      };
     }else {
+      val.component=root;
       treeFor(val.children);
     }
   })
 };
-treeFor(routerConfigTreeData.config)
-console.log(routerConfigTreeData.config);
-Vue.use(Router)
+treeFor(routerConfigTreeData);
 
 export default new Router({
-  routes: routerConfigTreeData.config
+  base: __dirname,
+  routes: [{
+    path: '/',
+    name: 'home',
+    meta: {title: 'home'},
+    component: root,
+    children: routerConfigTreeData
+  }]
 })
 

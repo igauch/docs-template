@@ -33,7 +33,7 @@ let tree = function tree(path, options) {
     ignore = paramToArray(options.ignore),
     suffix = paramToArray(options.suffix);
   try {
-    files = fs.readdirSync(path)
+    files = fs.readdirSync(nodePath.resolve(__dirname,path))
   } catch (e) {
     files = [];
     console.log('#----------------------------------------------------#\n');
@@ -41,25 +41,27 @@ let tree = function tree(path, options) {
     console.log('#----------------------------------------------------#\n');
   }
   files.forEach(function (i) {
-    let p = '../' + path + (/\/$/.test(path) ? '' : '/') + i,
+    let p = path + (/\/$/.test(path) ? '' : '/') + i,
       meta = {};
-    state = fs.statSync(p);
+    state = fs.statSync(nodePath.resolve(__dirname,p));
     if (ignore.indexOf(i) === -1 && (!suffix.length || state.isDirectory() || (/\./.test(i) && suffix.indexOf(i.replace(/.*\.(.*)$/, '$1')) >= 0))) {
       if (!state.isDirectory()) {
         if (nodePath.extname(p).toLowerCase() !== '.md') return;
-        let data = fs.readFileSync(p, 'utf8');
+        let data = fs.readFileSync(nodePath.resolve(__dirname,p), 'utf8');
         if (data) {
           let metaData = data.match(/^---\n[\s\S]*?\n---/);
           if (metaData) {
             meta = matter(metaData[0]).data;
           }
         }
-        meta.resourcePath = p;
+        meta.resourcePath = p.split('docs/')[1];
       }
+      const name=p.split('/docs/')[1].replace(/\/(\w)/g, function ($0, $1) {
+        return $1.toUpperCase();
+      }).split('.')[0];
       item = {
-        name: p.split('/docs/')[1].replace(/\/(\w)/g, function ($0, $1) {
-          return $1.toUpperCase();
-        }).split('.')[0],
+        name: name,
+        path: name,
         meta: meta
       };
       children.push(item);
@@ -71,9 +73,9 @@ let tree = function tree(path, options) {
   return children;
 };
 
-const navConfigData=JSON.stringify({config:tree('../docs')});
+const navConfigData=JSON.stringify(tree('../docs'));
 
-fs.writeFile('../src/router/config.json',navConfigData,(err)=>{
+fs.writeFile(nodePath.resolve(__dirname,'../src/router/config.json'),navConfigData,(err)=>{
   if (err) throw err;
   console.log('创建导航配置信息成功');
 });

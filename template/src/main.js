@@ -9,7 +9,7 @@ import demoBlock from './components/demo-block.vue'
 Vue.component('el-alert',elAlert);
 Vue.component('demo-block', demoBlock);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -17,4 +17,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-})
+});
