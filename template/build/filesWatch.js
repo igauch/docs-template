@@ -12,7 +12,6 @@ var exec = require('child_process').exec;
 
 var watcher = chokidar.watch(path.resolve(__dirname,'../docs'),{ignoreInitial:true});
 var callback=function() {
-  console.log(56);
   exec('cd '+path.resolve(__dirname,'./')+' && node filesTree.js',(err,stdout)=>{
     if(err) throw err;
     console.log(stdout);
@@ -20,5 +19,4 @@ var callback=function() {
 };
 watcher
   .on('add', callback)
-  .on('change',()=>{console.log(89);})
   .on('unlink', callback);

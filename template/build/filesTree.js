@@ -74,7 +74,6 @@ let tree = function tree(path, options) {
 };
 
 const navConfigData=JSON.stringify(tree('../docs'));
-
 fs.writeFile(nodePath.resolve(__dirname,'../src/router/config.json'),navConfigData,(err)=>{
   if (err) throw err;
   console.log('创建导航配置信息成功');

@@ -7,6 +7,10 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const EventHooksPlugin = require('event-hooks-webpack-plugin')
+
+const exec = require('child_process').exec;
+let once=true;
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -48,8 +52,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
+    new EventHooksPlugin({
+      'done': function() {
+        if(!once) return;
+        exec('npm run watchDocs');
+        once=false;
+      }
+    })
   ]
 })
+
+// todo 多次编译
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
