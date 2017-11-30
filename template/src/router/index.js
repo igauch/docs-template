@@ -31,6 +31,7 @@ export default new Router({
     name: 'home',
     meta: {title: 'home'},
     component: root,
+    redirect: 'index',
     children: routerConfigTreeData
   }]
 })
