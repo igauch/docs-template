@@ -1,23 +1,31 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view class="content"></router-view>
+  <div id="app" class="d-flex">
+      <div class="docs-side-nav">
+        <sidenav class="side-nav"></sidenav>
+      </div>
+      <div class="docs-main-views docs-flex-1">
+        <router-view class="content"></router-view>
+      </div>
   </div>
 </template>
 
 <script>
+import Sidenav from "./components/sidenav";
+
 export default {
+  components: {Sidenav},
   name: 'app'
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  html,body,#app{
+    height: 100%;
+  }
+  #app{
+    min-width: 682px;
+    overflow: hidden;
+  }
+  @import 'highlight.js/styles/color-brewer.css';
+  @import "styles/docs.scss";
 </style>

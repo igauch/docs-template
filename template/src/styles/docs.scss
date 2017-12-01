@@ -1,0 +1,15 @@
+.docs-{
+  &side-nav{
+    width: 200px;
+  }
+  &flex-1{
+    flex: 1 1 0;
+  }
+  &logo{
+    height: 40px;
+  }
+
+  &main-views{
+    overflow: auto;
+  }
+}

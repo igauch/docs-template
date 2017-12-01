@@ -1,1 +1,1 @@
-[{"name":"alert","path":"alert","meta":{"title":"提醒","resourcePath":"alert.md"}},{"name":"group","path":"group","meta":{},"children":[{"name":"groupBadge","path":"groupBadge","meta":{"resourcePath":"group/badge.md"}}]},{"name":"index","path":"index","meta":{"resourcePath":"index.md"}}]
+[{"name":"alert","path":"alert","meta":{"resourcePath":"alert.md"}},{"name":"group","path":"group","meta":{},"children":[{"name":"groupBadge","path":"groupBadge","meta":{"resourcePath":"group/badge.md"}}]},{"name":"index","path":"index","meta":{"resourcePath":"index.md"}}]

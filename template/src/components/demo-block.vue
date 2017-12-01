@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
   .demo-block {
     border: solid 1px #ebebeb;
     border-radius: 3px;
@@ -131,7 +131,7 @@
       &.is-fixed {
         position: fixed;
         bottom: 0;
-        width: 868px;
+        /*width: 868px;*/
       }
 
       i {
@@ -300,9 +300,10 @@ const version='2.0.1';
       },
 
       scrollHandler() {
-        const { top, bottom, left } = this.$refs.meta.getBoundingClientRect();
+        const { top, bottom, left, right } = this.$refs.meta.getBoundingClientRect();
         this.fixedControl = bottom > document.documentElement.clientHeight &&
           top + 44 <= document.documentElement.clientHeight;
+        this.fixedControl && (this.$refs.control.style.width=right-left+'px');
         this.$refs.control.style.left = this.fixedControl ? `${ left }px` : '0';
       },
 
@@ -351,7 +352,7 @@ const version='2.0.1';
           return;
         }
         setTimeout(() => {
-          this.scrollParent = document.querySelector('.page-component__scroll > .el-scrollbar__wrap');
+          this.scrollParent = document.querySelector('.docs-main-views');
           this.scrollParent && this.scrollParent.addEventListener('scroll', this.scrollHandler);
           this.scrollHandler();
         }, 200);
