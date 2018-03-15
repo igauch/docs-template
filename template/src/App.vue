@@ -26,6 +26,5 @@ export default {
     min-width: 682px;
     overflow: hidden;
   }
-  @import 'highlight.js/styles/color-brewer.css';
   @import "styles/docs.scss";
 </style>

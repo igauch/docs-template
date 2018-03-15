@@ -85,6 +85,7 @@ module.exports = {
         test: /\.md$/,
         loader: 'vue-markdown-loader',
         options: {
+          preventExtract: true,
           use: [
             [require('markdown-it-anchor'), {
               level: 2,
@@ -121,7 +122,19 @@ module.exports = {
               }
             }],
             [require('markdown-it-container'), 'tip'],
-            [require('markdown-it-container'), 'warning']
+            [require('markdown-it-container'), 'warning'],
+            [require('markdown-it-container'), 'mate', {
+              validate: function(params) {
+                return params.trim().match(/^mate\s*(.*)$/);
+              },
+
+              render: function(tokens, idx) {
+                if(tokens[idx].nesting === 1){
+                  return '<div style="display: none">'
+                }
+                return '</div>\n';
+              }
+            }]
           ],
           preprocess: function(MarkdownIt, source) {
             MarkdownIt.renderer.rules.table_open = function() {

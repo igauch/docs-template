@@ -49,9 +49,11 @@ let tree = function tree(path, options) {
         if (nodePath.extname(p).toLowerCase() !== '.md') return;
         let data = fs.readFileSync(nodePath.resolve(__dirname,p), 'utf8');
         if (data) {
-          let metaData = data.match(/^---\n[\s\S]*?\n---/);
+          let metaData = data.match(/^::: mate\s*\n[\s\S]*?\n:::/);
           if (metaData) {
-            meta = matter(metaData[0]).data;
+            metaData = metaData[0].replace(/^::: mate\s*(\n[\s\S]*?\n):::/,'---$1---');
+            console.log(metaData);
+            meta = matter(metaData).data;
           }
         }
         meta.resourcePath = p.split('docs/')[1];
@@ -61,7 +63,7 @@ let tree = function tree(path, options) {
       }).split('.')[0];
       item = {
         name: name,
-        path: name,
+        path: i.split('.')[0],
         meta: meta
       };
       children.push(item);
